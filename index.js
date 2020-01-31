@@ -5,7 +5,7 @@ const db = require('./model/db');
 
 const app = express();
 app.use(express.static('public'))
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 db.authenticate()
 .then(() => {
     console.log('Connection has been established successfully.');

@@ -18,6 +18,22 @@ html(lang="en")
 
         .container(id="container")
 
+        // Modal
+        #deleteModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel' aria-hidden='true')
+            .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5#deleteModalLabel.modal-title Delete Note
+                            button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                span(aria-hidden='true') &times;
+                        .modal-body
+                            | Are you sure you want to delete 
+                            b(id="title") 
+                        .modal-footer
+                            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                            form(action="/delete", method="post")
+                                input(type="hidden", name="id" id="hiddenInp")
+                                button.btn.btn-warning(type='submit') Delete
 
         script(src="/js/jquery-3.3.1.js")
         script(src="/js/bootstrap.bundle.min.js")

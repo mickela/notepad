@@ -1,7 +1,6 @@
 fetch('http://localhost:3000/notes')
 .then(res => res.json())
 .then(notes=>{
-    console.log(notes)
     let collection = "";
     notes.forEach(note =>{
         collection += `
@@ -11,9 +10,11 @@ fetch('http://localhost:3000/notes')
             <div class="collapse" id="collapse${note.id}">
                 <div class="card card-body">
                     ${note.body}
-                    <div class=" text-right">
+                    <div class="text-right">
                         <button class="btn btn-sm btn-primary">Edit</button>
-                        <button class="btn btn-sm btn-danger">Delete</button>
+                        <button type="button" class="btn btn-sm btn-danger promptModal" noteid="${note.id}" notetitle="${note.title}" data-toggle='modal' data-target='#deleteModal'>
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>
@@ -21,4 +22,14 @@ fetch('http://localhost:3000/notes')
         `
     })
     document.getElementById('container').innerHTML = collection;
+    let buttons = document.getElementsByClassName('promptModal');
+    
+    for(let button of buttons){
+        button.addEventListener('click', ()=>{
+            const { noteid, notetitle } = button.attributes;
+
+            document.getElementById('title').textContent = notetitle.value + "?";
+            document.getElementById('hiddenInp').value = noteid.value;
+        })  
+    }
 })
