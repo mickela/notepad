@@ -11,7 +11,15 @@ fetch('http://localhost:3000/notes')
                 <div class="card card-body">
                     ${note.body}
                     <div class="text-right">
-                        <button class="btn btn-sm btn-primary">Edit</button>
+                        <hr/>
+                        <div class="text-left text-muted">
+                            <span>Created: ${note.createdAt}</span><br/>
+                            <span>Last modified: ${note.updatedAt}</span>
+                        </div>
+                        <form action="/edit" style="display: inline">
+                            <input type="hidden" name="id" value="${note.id}" />
+                            <button type="submit" class="btn btn-sm btn-primary">Edit</button>
+                        </form>
                         <button type="button" class="btn btn-sm btn-danger promptModal" noteid="${note.id}" notetitle="${note.title}" data-toggle='modal' data-target='#deleteModal'>
                             Delete
                         </button>

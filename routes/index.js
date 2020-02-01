@@ -38,5 +38,27 @@ router.post('/delete', (req,res)=>{
     res.redirect('/');
 })
 
+router.get('/edit', (req, res)=>{
+    // fetch note data and send to the view for edit
+    const id = req.query.id;
+    Note.findAll({ where: { id: id } })
+    .then(res => JSON.stringify(res))
+    .then(note => {
 
+        let result = JSON.parse(note)[0];
+        res.render('edit', { id: result.id, title: result.title, body: result.body })
+    }).catch(err => console.log(err))
+
+    
+})
+router.post('/edit', (req, res)=>{
+    // update note
+    Note.update({ title: req.body.title, body: req.body.body, updatedAt: new Date() }, {
+        where: {
+            id: req.body.id
+        }
+    }).then(res => console.log('updated note successfully'))
+    .catch(err => console.log(err))
+    res.redirect('/');
+})
 module.exports = router;
