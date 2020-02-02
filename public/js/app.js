@@ -4,12 +4,12 @@ fetch('http://localhost:3000/notes')
     let collection = "";
     notes.forEach(note =>{
         collection += `
-            <button class="card-header btn-block btn-lg text-left" type="button" data-toggle="collapse" data-target="#collapse${note.id}" aria-expanded="false" aria-controls="collapseExample">
+            <button class="card-header btn-block btn-lg text-left" type="button" data-toggle="collapse" data-target="#collapse${note.id}" aria-expanded="false" aria-controls="collapse${note.id}">
                 ${note.title}
             </button>
             <div class="collapse" id="collapse${note.id}">
                 <div class="card card-body">
-                    ${note.body}
+                    <textarea readonly rows="3">${note.body}</textarea>
                     <div class="text-right">
                         <hr/>
                         <div class="text-left text-muted">

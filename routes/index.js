@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Note = require('../model/model');
+const sequelize = require('sequelize');
 
 
 router.get('/', (req, res)=>{
@@ -61,4 +62,27 @@ router.post('/edit', (req, res)=>{
     .catch(err => console.log(err))
     res.redirect('/');
 })
+
+router.post('/search', (req, res)=>{
+    // find matching title
+    const Op = sequelize.Op
+    let title = req.body.title;
+    let result;
+    Note.findAll({ where: { 
+        title: {
+            [Op.iRegexp]: title
+        } 
+    }})
+    .then(data => {
+        result = JSON.stringify(data);
+        console.log(result)
+        // res.send(result)
+        blood = JSON.parse(result);
+        console.log(blood);
+        res.render('search', { result: blood, title: title })
+        console.log(title)
+    })
+    .catch(err => console.log(err))
+})
+
 module.exports = router;
